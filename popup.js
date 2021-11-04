@@ -50,6 +50,8 @@ function searchForAcronyms() {
   }
 
   chrome.storage.sync.get("acronyms", ({ acronyms }) => {
+
+    // Instead of iterating through the dom for each acronym, pass a set of acronyms into the iterateTree fn and check if there's a match.  That'll make it O(n) runtime.
     for (const acronym  of acronyms) {
       const acroEls = [];
       for (const el of document.body.children) {
