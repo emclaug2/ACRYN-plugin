@@ -30,28 +30,36 @@ function setPageBackgroundColor() {
 
 
 
-// The body of this function will be execuetd as a content script inside the
+// The body of this function will be executed as a content script inside the
 // current page
 function searchForAcronyms() {
-
-  const wrapAcronym = (div, ) => {
-
-  };
-
-  const hasAcronym = (el, acr) => {
-    if (el && el.children && el.children[0] && el.children[0].innerText.includes(acr)) {
-      console.log(el.children[0]);
-      return el.children[0];
+  /** Returns an array of elements where the immediate inner content contains an acroynm. */
+  const iterateTree = (el, acronym) => {
+    const els = [];
+    if (el.hasChildNodes()) {
+      for (const child of el.childNodes) {
+        els.push(...iterateTree(child, acronym));
+      }
+    } else if (el.nodeType === Node.TEXT_NODE) {
+      console.log(el.nodeValue);
+      if(el.nodeValue && el.nodeValue.includes(acronym)) {
+        els.push(el);
+      }
     }
+    return els;
   }
 
   chrome.storage.sync.get("acronyms", ({ acronyms }) => {
-  //  const divs = document.getElementsByTagName("div");
-    for (const acronym of acronyms) {
-      console.log(acronym);
-
-      const re = new RegExp(acronym,"g");
-      document.body.innerHTML = document.body.innerHTML.replace(re, `<span style="background-color: yellow">${acronym}</span>`);
+    for (const acronym  of acronyms) {
+      const acroEls = [];
+      for (const el of document.body.children) {
+        acroEls.push(...iterateTree(el, acronym));
+      }
+      for (const acroEl of acroEls) {
+        const re = new RegExp(acronym,"g");
+        acroEl.parentElement.innerHTML = acroEl.parentElement.innerHTML
+            .replace(re, `<span style="background-color: yellow">${acronym}</span>`);
+      }
     }
   });
 }
