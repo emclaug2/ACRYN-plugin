@@ -2,7 +2,7 @@
 let changeColor = document.getElementById("changeColor");
 
 chrome.storage.sync.get("color", ({ color }) => {
-  changeColor.style.backgroundColor = color;
+  changeColor.style.borderColor = color;
 });
 
 // When the button is clicked, inject setPageBackgroundColor into current page
@@ -28,40 +28,61 @@ function setPageBackgroundColor() {
   });
 }
 
+window.onload=function(){
+  console.log("page load!");
+}
 
 
 // The body of this function will be executed as a content script inside the
 // current page
 function searchForAcronyms() {
+
   /** Returns an array of elements where the immediate inner content contains an acroynm. */
-  const iterateTree = (el, acronym) => {
+  const iterateTree = (el, acronyms) => {
     const els = [];
     if (el.hasChildNodes()) {
       for (const child of el.childNodes) {
-        els.push(...iterateTree(child, acronym));
+        els.push(...iterateTree(child, acronyms));
       }
-    } else if (el.nodeType === Node.TEXT_NODE) {
-      console.log(el.nodeValue);
-      if(el.nodeValue && el.nodeValue.includes(acronym)) {
-        els.push(el);
+    } else if (el.nodeType === Node.TEXT_NODE && el.nodeValue) {
+      for (const word of el.nodeValue.split(' ')) {
+        if (acronyms.has(word)) {
+          els.push({ el, word });
+        }
       }
     }
     return els;
   }
 
-  chrome.storage.sync.get("acronyms", ({ acronyms }) => {
+  chrome.storage.sync.get("acronyms", async ({ acronyms }) => {
 
-    // Instead of iterating through the dom for each acronym, pass a set of acronyms into the iterateTree fn and check if there's a match.  That'll make it O(n) runtime.
-    for (const acronym  of acronyms) {
-      const acroEls = [];
+      const map = new Map();
+      for (const acro of acronyms) {
+        map.set(acro.abbr, acro.meaning);
+      }
+
+      const matches = [];
       for (const el of document.body.children) {
-        acroEls.push(...iterateTree(el, acronym));
+        matches.push(...iterateTree(el, map));
       }
-      for (const acroEl of acroEls) {
-        const re = new RegExp(acronym,"g");
-        acroEl.parentElement.innerHTML = acroEl.parentElement.innerHTML
-            .replace(re, `<span style="background-color: yellow">${acronym}</span>`);
-      }
-    }
+
+      let highlightColor = 'yellow'; // default
+      chrome.storage.sync.get("color", ({ color }) => {
+        highlightColor = color;
+        for (const match of matches) {
+          const word = match.word;
+          const el = match.el;
+          const definition = map.get(word);
+          const re = new RegExp(word,"g");
+          el.parentElement.innerHTML = el.parentElement.innerHTML
+              .replace(re, `<span style="background-color: ${highlightColor}" title="${definition}">${word}</span>`);
+        }
+      });
   });
 }
+
+// Need to handle multiple matches gracefully.
+// Need to handle dynamic content.  Imagine async content.
+// Need to handle tab changes.
+// Need to handle databsae updates.
+// Tooltip needs HTML
