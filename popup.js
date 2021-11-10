@@ -66,7 +66,7 @@ function searchForAcronyms(dbAcronyms) {
         if (el.parentElement && el.parentElement.innerHTML) {
           el.parentElement.innerHTML = el.parentElement.innerHTML
               .replace(re, `
-                  <span class="tooltip" style="background-color: ${highlightColor}">${word}
+                  <span class="tooltip">${word}
                       <span class="tooltiptext">${definition}</span>
                   </span>
               `);
