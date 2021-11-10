@@ -11,16 +11,15 @@ changeColor.addEventListener("click", async () => {
 
   let acronyms = [];
   await fetch('https://raw.githubusercontent.com/emclaug2/ACRYN-plugin/master/acroynms.json')
-      .then(jsonData => {
-        acronyms = JSON.parse(jsonData);
-      })
-      .then(console.log)
+      .then(response => response.json())
+      .then(data => {
+        acronyms = data.acronyms;
+      });
 
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
-    function: () => {
-      searchForAcronyms(acronyms);
-    },
+    function: searchForAcronyms,
+    args: [acronyms]
   });
 });
 
