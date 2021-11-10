@@ -9,6 +9,12 @@ chrome.storage.sync.get("color", ({ color }) => {
 changeColor.addEventListener("click", async () => {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
+
+
+  fetch('https://jsonplaceholder.typicode.com/posts/1')
+      .then(res => res.json())
+      .then(console.log)
+
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
     function: setPageBackgroundColor,
@@ -74,8 +80,14 @@ function searchForAcronyms() {
           const el = match.el;
           const definition = map.get(word);
           const re = new RegExp(word,"g");
-          el.parentElement.innerHTML = el.parentElement.innerHTML
-              .replace(re, `<span style="background-color: ${highlightColor}" title="${definition}">${word}</span>`);
+          if (el.parentElement && el.parentElement.innerHTML) {
+            el.parentElement.innerHTML = el.parentElement.innerHTML
+                .replace(re, `
+                    <span class="tooltip" style="background-color: ${highlightColor}">${word}
+                        <span class="tooltiptext">${definition}</span>
+                    </span>
+                `);
+          }
         }
       });
   });

@@ -6,9 +6,18 @@
   "background": {
     "service_worker": "background.js"
   },
-  "permissions": ["storage", "activeTab", "scripting",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
     "tabs",
     "notifications"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://*/*"],
+      "css": ["css/acronym-plugin-tooltip.css"]
+    }
   ],
   "action": {
     "default_popup": "popup.html",
