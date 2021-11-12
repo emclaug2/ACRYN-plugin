@@ -67,7 +67,8 @@ function searchForAcronyms(dbAcronyms) {
           el.parentElement.innerHTML = el.parentElement.innerHTML
               .replace(re, `
                   <span class="tooltip">${word}
-                      <span class="tooltiptext">${acronymObject.meaning} ${acronymObject.description}</span>
+                      <span class="tooltiptext"><div>${acronymObject.meaning}</div> 
+                      <div>${acronymObject.description}</div></span>
                   </span>
               `);
         }
