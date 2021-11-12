@@ -47,7 +47,7 @@ function searchForAcronyms(dbAcronyms) {
 
     const map = new Map();
     for (const acro of dbAcronyms) {
-      map.set(acro.abbr, acro.meaning);
+      map.set(acro.abbr, acro);
     }
 
     const matches = [];
@@ -61,13 +61,13 @@ function searchForAcronyms(dbAcronyms) {
       for (const match of matches) {
         const word = match.word;
         const el = match.el;
-        const definition = map.get(word);
+        const acronymObject = map.get(word);
         const re = new RegExp(word,"g");
         if (el.parentElement && el.parentElement.innerHTML) {
           el.parentElement.innerHTML = el.parentElement.innerHTML
               .replace(re, `
                   <span class="tooltip">${word}
-                      <span class="tooltiptext">${definition}</span>
+                      <span class="tooltiptext">${acronymObject.meaning} ${acronymObject.description}</span>
                   </span>
               `);
         }

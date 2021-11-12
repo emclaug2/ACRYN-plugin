@@ -2,19 +2,27 @@
   "acronyms": [
     {
       "abbr": "PX",
-      "meaning": "Power Xpert"
+      "meaning": "Power Xpert",
+      "description": "An electrical power managment system",
+      "team": " Center for Connected Intelligent Solutions (CCIS)"
     },
     {
       "abbr": "UX",
-      "meaning": "User Experience"
+      "meaning": "User Experience",
+      "description": "The human-centered process of designing how the user experiences a product.",
+      "team": "asdf"
     },
     {
       "abbr": "CLI",
-      "meaning": "Command Line Interface"
+      "meaning": "Command Line Interface",
+      "description": "asdf",
+      "team": "asdf"
     },
     {
       "abbr": "BSD-3",
-      "meaning": "BSD-3 License Agree (Open Source, Limited Non-Profit Use)"
+      "meaning": "BSD-3 License Agree (Open Source, Limited Non-Profit Use)",
+      "description": "A generic License for open-source code sharing",
+      "team": "asdf"
     }
   ]
 }
