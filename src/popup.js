@@ -1,11 +1,21 @@
 // Initialize butotn with users's prefered color
 let changeColor = document.getElementById('changeColor');
 let loginButton = document.getElementById('login');
+let logoutButton = document.getElementById('logout');
 let loginButtonContainer = document.getElementById('loginButtonContainer');
 let userContentContainer = document.getElementById('userContentContainer');
+let toggleFindAcronym = document.getElementById('toggleFindAcronym');
+
+let db = [];
 
 window.onload = (event) => {
-    console.log('page is fully loaded');
+    fetch('https://raw.githubusercontent.com/emclaug2/ACRYN-plugin/master/acroynms.json')
+        .then((response) => response.json())
+        .then((data) => {
+            db = data.acronyms;
+        }).catch((err) => {
+            console.error(err);
+    })
 };
 /*
 chrome.storage.sync.get("color", ({ color }) => {
@@ -15,9 +25,34 @@ chrome.storage.sync.get("color", ({ color }) => {
 
 function login() {
     loginButtonContainer.style.display = 'none';
+    userContentContainer.style.display = 'block';
+}
+
+function logout() {
+    loginButtonContainer.style.display = 'block';
+    userContentContainer.style.display = 'none';
+}
+
+async function toggleAcronyms() {
+    const enable = toggleFindAcronym.checked;
+    let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    if (enable) {
+        chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            function: discoverAcronyms,
+            args: [db],
+        });
+    } else {
+        chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            function: disableAcronyms,
+        });
+    }
 }
 
 loginButton.addEventListener('click', login);
+logoutButton.addEventListener('click', logout);
+toggleFindAcronym.addEventListener('change', toggleAcronyms);
 
 // When the button is clicked, inject setPageBackgroundColor into current page
 loginButton.addEventListener('click', async () => {
@@ -32,14 +67,19 @@ loginButton.addEventListener('click', async () => {
 
     chrome.scripting.executeScript({
         target: { tabId: tab.id },
-        function: searchForAcronyms,
+        function: discoverAcronyms,
         args: [acronyms],
     });
 });
 
+
+function disableAcronyms() {
+
+}
+
 // The body of this function will be executed as a content script inside the
 // current page
-function searchForAcronyms(dbAcronyms) {
+function discoverAcronyms(dbAcronyms) {
     /** Returns an array of elements where the immediate inner content contains an acroynm. */
     const iterateTree = (el, acronyms) => {
         const els = [];
@@ -79,8 +119,8 @@ function searchForAcronyms(dbAcronyms) {
                 el.parentElement.innerHTML = el.parentElement.innerHTML.replace(
                     re,
                     `
-                  <span class="tooltip">${word}
-                      <span class="tooltiptext">${definition}</span>
+                  <span class="eaton-acronym-plugin-tooltip-text">${word}
+                      <span class="tooltip-text">${definition}</span>
                   </span>
               `
                 );

@@ -1,4 +1,4 @@
-.tooltip {
+.eaton-acronym-plugin-tooltip-text {
     position: relative;
     display: inline-block;
     background-color: #007bc129;
@@ -6,7 +6,7 @@
     overflow: visible;
 }
 
-.tooltip .tooltiptext {
+.eaton-acronym-plugin-tooltip-text .tooltip-text {
     font-size: 14px;
     visibility: hidden;
     min-width: 120px;
@@ -23,6 +23,6 @@
     position: absolute;
 }
 
-.tooltip:hover .tooltiptext {
+.eaton-acronym-plugin-tooltip-text:hover .tooltip-text {
     visibility: visible;
 }
