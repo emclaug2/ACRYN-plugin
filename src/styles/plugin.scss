@@ -1,0 +1,121 @@
+@import '../../node_modules/@brightlayer-ui/colors/palette.scss';
+
+.eaton-acronym-plugin-container {
+    font-family: 'Gill Sans', sans-serif;
+
+    * {
+        box-sizing: border-box;
+    }
+
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 8px;
+    box-sizing: border-box;
+
+    #acronymSearchInput {
+        $borderColor: map-get($blui-gray, 100);
+        width: 100%;
+        height: 36px;
+        border-radius: 18px;
+        padding: 0 16px;
+        box-shadow: inset 0px 0px 0px 0px $borderColor;
+        border: solid 1px $borderColor;
+        font-style: italic;
+        color: map-get($blui-gray, 300);
+    }
+
+    .toggle-container {
+        margin-top: 24px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        font-size: 16px;
+    }
+    .switch {
+        display: inline-block;
+        height: 34px;
+        position: relative;
+        width: 60px;
+    }
+
+    .switch input {
+        display: none;
+    }
+
+    .slider {
+        background-color: #ccc;
+        bottom: 0;
+        cursor: pointer;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transition: 0.4s;
+    }
+
+    .slider:before {
+        background-color: #fff;
+        bottom: 4px;
+        content: '';
+        height: 26px;
+        left: 4px;
+        position: absolute;
+        transition: 0.4s;
+        width: 26px;
+    }
+
+    input:checked + .slider {
+        background-color: #66bb6a;
+    }
+
+    input:checked + .slider:before {
+        transform: translateX(26px);
+    }
+
+    .slider.round {
+        border-radius: 34px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+
+    #login {
+        color: map-get($blui-blue, 500);
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    #userContentContainer {
+        display: none;
+    }
+
+    button {
+        height: 30px;
+        width: 30px;
+        outline: none;
+        margin: 10px;
+        border: none;
+        border-radius: 2px;
+        background: red;
+    }
+
+    button.current {
+        box-shadow: 0 0 0 2px white, 0 0 0 4px black;
+    }
+
+    .tooltip-button {
+        color: #2d2d2d;
+        text-align: center;
+        font-size: 12px;
+        border: solid 1px;
+        background-color: unset;
+        width: 130px;
+        height: 20px;
+        border-radius: 16px;
+        margin: 0;
+    }
+}

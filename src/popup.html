@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html style="border-radius: 4px">
+    <head>
+        <link rel="stylesheet" href="styles/plugin.css" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="eaton-acronym-plugin-container">
+            <input type="text" id="acronymSearchInput" name="acronymSearch" placeholder="Search in Eaton Glossary..." />
+
+            <span class="material-icons">face</span>
+            <div class="toggle-container">
+                <div style="margin-right: 16px">
+                    <label class="switch" for="checkbox">
+                        <input type="checkbox" id="checkbox" />
+                        <div class="slider round"></div>
+                    </label>
+                </div>
+                <div>Check for acronyms on <strong>Eaton.com</strong></div>
+            </div>
+            <div style="margin-top: 16px">
+                <div id="loginButtonContainer">
+                    <span id="login">Log in</span> on Eaton's network to contribute and save your preferences.
+                </div>
+            </div>
+            <div id="userContentContainer">
+                <button class="eaton-glossary-button">Eaton Glossary Home Page</button>
+                <div>
+                    <div class="user-email">evanmclaughlin@eaton.com</div>
+                    <div>
+                        <div class="user-contributions">My Contributions</div>
+                        <div class="logout">Log Out</div>
+                    </div>
+                </div>
+            </div>
+            <!--<button id="changeColor" class="tooltip-button">Toggle Tooltips</button>-->
+        </div>
+        <script src="popup.js"></script>
+    </body>
+</html>

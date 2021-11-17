@@ -1,0 +1,36 @@
+{
+  "name": "acryn-plugin",
+  "version": "1.0.0",
+  "description": "A Chrome plugin that allows quick access to Eaton's many acronyms.",
+  "main": "background.js",
+  "prettier": "@brightlayer-ui/prettier-config",
+  "scripts": {
+    "build:styles": "sass --watch styles:styles",
+    "prettier": "prettier \"src/**/**.{ts,tsx,js,jsx,json,css,scss,html}\" --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emclaug2/ACRYN-plugin.git"
+  },
+  "keywords": [
+    "Chrome",
+    "Plugin",
+    "Eaton",
+    "Acronym",
+    "Search"
+  ],
+  "author": "Evan McLaughlin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/emclaug2/ACRYN-plugin/issues"
+  },
+  "homepage": "https://github.com/emclaug2/ACRYN-plugin#readme",
+  "devDependencies": {
+    "@brightlayer-ui/prettier-config": "^1.0.3",
+    "prettier": "^2.4.1",
+    "sass": "^1.43.4"
+  },
+  "dependencies": {
+    "@brightlayer-ui/colors": "^3.0.1"
+  }
+}
