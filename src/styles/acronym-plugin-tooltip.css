@@ -1,0 +1,28 @@
+.eaton-acronym-plugin-tooltip-text {
+  position: relative;
+  display: inline-block;
+  background-color: #007bc129;
+  border-bottom: 1px dotted black;
+  overflow: visible;
+}
+
+.eaton-acronym-plugin-tooltip-text .tooltip-text {
+  font-size: 14px;
+  visibility: hidden;
+  min-width: 120px;
+  max-width: 240px;
+  background-color: #2b2b2b;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 4px 8px;
+  /* Position the tooltip */
+  z-index: 9999;
+  position: absolute;
+}
+
+.eaton-acronym-plugin-tooltip-text:hover .tooltip-text {
+  visibility: visible;
+}
+
+/*# sourceMappingURL=acronym-plugin-tooltip.css.map */
