@@ -1,4 +1,5 @@
 @import '../../node_modules/@brightlayer-ui/colors/palette.scss';
+@import './switch';
 
 .eaton-acronym-plugin-container {
     font-family: 'Gill Sans', sans-serif;
@@ -25,6 +26,10 @@
         border: solid 1px $borderColor;
         font-style: italic;
         color: map-get($blui-gray, 300);
+        &:focus-visible {
+            outline: none !important;
+            border: solid 2px  map-get($blui-blue, 500)!important;
+        }
     }
 
     .toggle-container {

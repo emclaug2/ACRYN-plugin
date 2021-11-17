@@ -5,7 +5,7 @@
   "main": "background.js",
   "prettier": "@brightlayer-ui/prettier-config",
   "scripts": {
-    "build:styles": "sass --watch styles:styles",
+    "build:styles": "sass --watch src/styles:src/styles",
     "prettier": "prettier \"src/**/**.{ts,tsx,js,jsx,json,css,scss,html}\" --write"
   },
   "repository": {
