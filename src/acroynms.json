@@ -3,8 +3,13 @@
         {
             "abbr": "PX",
             "meaning": "Power Xpert",
-            "division": "Development",
-            "usedBy" : "ALL"
+            "description": "Power Xpert Blue is an open source design system used by Eaton teams.",
+            "sector": "Development",
+            "region" : "ALL",
+            "score": 1,
+            "references": ["https://www.pxblue.github.io"],
+            "lastUpdateUnixTime": "3 months ago",
+            "lastUpdatedBy": "Joe Boyle"
         }
     ]
 }
