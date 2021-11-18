@@ -8,32 +8,37 @@
         <div class="eaton-acronym-plugin-container">
             <input type="text" id="acronymSearchInput" name="acronymSearch" placeholder="Search in Eaton Glossary..." />
 
-            <!--span class="material-icons">face</span>-->
-            <div class="toggle-container">
-                <div style="margin-right: 16px">
-                    <label class="cl-switch">
-                        <input type="checkbox" id="toggleFindAcronym" >
-                        <span class="switcher"></span>
-                    </label>
+            <div id="searchContainer"></div>
+
+            <div id="nonSearchContainer">
+                <div class="toggle-container">
+                    <div style="margin-right: 16px">
+                        <label class="cl-switch">
+                            <input type="checkbox" id="toggleFindAcronym" >
+                            <span class="switcher"></span>
+                        </label>
+                    </div>
+                    <div>Check for acronyms on <strong>Eaton.com</strong></div>
                 </div>
-                <div>Check for acronyms on <strong>Eaton.com</strong></div>
-            </div>
-            <div style="margin-top: 16px">
-                <div id="loginButtonContainer">
-                    <span id="login">Log in</span> on Eaton's network to contribute and save your preferences.
+                <div style="margin-top: 16px">
+                    <div id="loginButtonContainer">
+                        <span id="login">Log in</span> on Eaton's network to contribute and save your preferences.
+                    </div>
                 </div>
-            </div>
-            <div id="userContentContainer">
-                <button class="eaton-glossary-button">Eaton Glossary Home Page</button>
-                <div>
-                    <div class="user-email">evanmclaughlin@eaton.com</div>
+                <div id="userContentContainer">
+                    <button class="eaton-glossary-button">
+                        <span class="material-icons" style="margin-right: 12px; font-size: 16px">home</span>
+                        Eaton Glossary Home Page
+                    </button>
                     <div>
-                        <div class="user-contributions">My Contributions</div>
-                        <div id="logout" class="logout">Log Out</div>
+                        <div class="user-email">evanmclaughlin@eaton.com</div>
+                        <div style="display: flex;">
+                            <div class="user-contributions">My Contributions</div>
+                            <div id="logout" class="logout">Log Out</div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!--<button id="changeColor" class="tooltip-button">Toggle Tooltips</button>-->
         </div>
         <script src="popup.js"></script>
     </body>

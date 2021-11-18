@@ -1,22 +1,28 @@
-// Initialize butotn with users's prefered color
-let changeColor = document.getElementById('changeColor');
-let loginButton = document.getElementById('login');
-let logoutButton = document.getElementById('logout');
-let loginButtonContainer = document.getElementById('loginButtonContainer');
-let userContentContainer = document.getElementById('userContentContainer');
-let toggleFindAcronym = document.getElementById('toggleFindAcronym');
 
+const loginButton = document.getElementById('login');
+const logoutButton = document.getElementById('logout');
+const loginButtonContainer = document.getElementById('loginButtonContainer');
+const userContentContainer = document.getElementById('userContentContainer');
+const toggleFindAcronym = document.getElementById('toggleFindAcronym');
+const acronymSearchInput = document.getElementById('acronymSearchInput');
+
+
+let searchedAcronyms = [];
 let db = [];
+let hasBeenToggled = false;
 
 window.onload = (event) => {
+    console.log('loading db');
     fetch('https://raw.githubusercontent.com/emclaug2/ACRYN-plugin/master/acroynms.json')
         .then((response) => response.json())
         .then((data) => {
+            console.log('database loaded');
             db = data.acronyms;
         }).catch((err) => {
             console.error(err);
     })
 };
+
 /*
 chrome.storage.sync.get("color", ({ color }) => {
   changeColor.style.borderColor = color;
@@ -34,22 +40,67 @@ function logout() {
 }
 
 async function toggleAcronyms() {
-    const enable = toggleFindAcronym.checked;
+    console.log('checked box');
+    const show = toggleFindAcronym.checked;
+    console.log('show');
+    console.log(show);
+
+    console.log('db!');
+    console.log(db);
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    if (enable) {
+    if (hasBeenToggled) {
+        console.log('been toggled');
+        chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            function: updateTooltipCss,
+            args: [show]
+        });
+    } else {
+        console.log('toggling on');
+        hasBeenToggled = true;
         chrome.scripting.executeScript({
             target: { tabId: tab.id },
             function: discoverAcronyms,
             args: [db],
         });
-    } else {
-        chrome.scripting.executeScript({
-            target: { tabId: tab.id },
-            function: disableAcronyms,
-        });
     }
 }
 
+function searchDatabaseForAcronyms(e) {
+    const value = e.target.value.toUpperCase();
+    searchedAcronyms = [];
+    for (const entry of db) {
+        if (value === entry.abbr.toUpperCase()) {
+            searchedAcronyms.push(entry);
+        }
+    }
+
+    const noSearchParentEl =  document.getElementById('nonSearchContainer');
+    const searchParentEl = document.getElementById('searchContainer');
+    if (value) {
+        searchParentEl.innerHTML = '';
+        noSearchParentEl.style.display = 'none';
+        searchParentEl.style.display = 'block';
+        if (searchedAcronyms.length === 0) {
+            const noResultsFound = document.createElement("div");
+            noResultsFound.innerHTML = "" +
+                "No results found. <span class='suggest-own-acronym-link'>Suggest Your Own</span>";
+            searchParentEl.append(noResultsFound);
+        } else {
+            searchedAcronyms.map((match) => {
+                const matchEl = document.createElement("div");
+                matchEl.innerHTML = `${match.meaning}`;
+                searchParentEl.append(matchEl);
+            });
+        }
+    } else {
+        noSearchParentEl.innerHTML = '';
+        noSearchParentEl.style.display = 'block';
+        searchParentEl.style.display = 'none';
+    }
+}
+
+acronymSearchInput.addEventListener('keyup', searchDatabaseForAcronyms);
 loginButton.addEventListener('click', login);
 logoutButton.addEventListener('click', logout);
 toggleFindAcronym.addEventListener('change', toggleAcronyms);
@@ -72,9 +123,20 @@ loginButton.addEventListener('click', async () => {
     });
 });
 
-
-function disableAcronyms() {
-
+function updateTooltipCss(show) {
+    console.log('show has value!!! : ' + show);
+    var myList = document.getElementsByClassName("eaton-acronym-plugin-tooltip-text");
+    var i = 0;
+    while(i < myList.length) {
+        if (show) {
+            myList[i].style.backgroundColor="";
+            myList[i].style.borderBottom="";
+        } else {
+            myList[i].style.backgroundColor="unset";
+            myList[i].style.borderBottom="unset";
+        }
+        i++;
+    }
 }
 
 // The body of this function will be executed as a content script inside the
@@ -130,7 +192,4 @@ function discoverAcronyms(dbAcronyms) {
 }
 
 // Need to handle multiple matches gracefully.
-// Need to handle dynamic content.  Imagine async content.
-// Need to handle tab changes.
 // Need to handle databsae updates.
-// Tooltip needs HTML
