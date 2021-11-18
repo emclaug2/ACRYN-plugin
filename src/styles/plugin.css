@@ -239,5 +239,33 @@ This code is licensed under the BSD-3 license found in the LICENSE file in the r
   margin-left: 16px;
   color: #ca3c3d;
 }
+.eaton-acronym-plugin-container #searchContainer {
+  width: 100%;
+  display: none;
+  padding-top: 16px;
+}
+.eaton-acronym-plugin-container #searchContainer #suggestYourOwn {
+  color: #007bc1;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.eaton-acronym-plugin-container #searchContainer #noResultsFound {
+  text-align: left;
+  font-size: 16px;
+}
+.eaton-acronym-plugin-container .searched-acronym-item {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  color: #424e54;
+}
+.eaton-acronym-plugin-container .searched-acronym-item .small-icon {
+  color: #727e84;
+  font-size: 12px;
+}
+.eaton-acronym-plugin-container .searched-acronym-item .large-icon {
+  color: #727e84;
+  font-size: 20px;
+}
 
 /*# sourceMappingURL=plugin.css.map */

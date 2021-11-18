@@ -5,7 +5,7 @@ const loginButtonContainer = document.getElementById('loginButtonContainer');
 const userContentContainer = document.getElementById('userContentContainer');
 const toggleFindAcronym = document.getElementById('toggleFindAcronym');
 const acronymSearchInput = document.getElementById('acronymSearchInput');
-
+const searchContainer = document.getElementById('searchContainer');
 
 let searchedAcronyms = [];
 let db = [];
@@ -67,7 +67,15 @@ async function toggleAcronyms() {
 }
 
 function searchDatabaseForAcronyms(e) {
+
     const value = e.target.value.toUpperCase();
+    if (value) {
+        searchContainer.style.display = 'block';
+    } else {
+        searchContainer.style.display = 'none';
+    }
+
+
     searchedAcronyms = [];
     for (const entry of db) {
         if (value === entry.abbr.toUpperCase()) {
@@ -77,20 +85,54 @@ function searchDatabaseForAcronyms(e) {
 
     const noSearchParentEl =  document.getElementById('nonSearchContainer');
     const searchParentEl = document.getElementById('searchContainer');
+
+
+    /** Suggest your own Acronym. */
+    const suggestYourOwnEl = document.createElement("span");
+    suggestYourOwnEl.id = 'suggestYourOwn';
+    suggestYourOwnEl.innerHTML = 'Suggest your Own';
+
     if (value) {
         searchParentEl.innerHTML = '';
         noSearchParentEl.style.display = 'none';
         searchParentEl.style.display = 'block';
         if (searchedAcronyms.length === 0) {
-            const noResultsFound = document.createElement("div");
-            noResultsFound.innerHTML = "" +
-                "No results found. <span class='suggest-own-acronym-link'>Suggest Your Own</span>";
-            searchParentEl.append(noResultsFound);
+            const noResultsFoundEl = document.createElement("div");
+            noResultsFoundEl.id = 'noResultsFound';
+            noResultsFoundEl.innerHTML = `<span style="margin-right: 8px">No results found.<span>`;
+            noResultsFoundEl.append(suggestYourOwnEl);
+            searchParentEl.append(noResultsFoundEl);
+            document.getElementById('suggestYourOwn').addEventListener('click', () => {
+                chrome.tabs.create({url: 'https://www.google.com'});
+            });
         } else {
             searchedAcronyms.map((match) => {
                 const matchEl = document.createElement("div");
-                matchEl.innerHTML = `${match.meaning}`;
+                matchEl.className = 'searched-acronym-item';
+                matchEl.innerHTML =
+                    `<div>
+                       <div style="font-size: 16px;">
+                            ${match.meaning}
+                       </div>
+                       <div style="font-size: 14px;">
+                           
+                            <span class="material-icons small-icon">apps</span>
+                            ${match.sector}
+                            
+                            <span class="material-icons small-icon" style="margin-left: 8px">public</span>
+                            ${match.region}
+                        </div>
+                    </div>
+                    <div display: flex>
+                       <span class="material-icons large-icon">thumb_up</span>
+                       <span class="material-icons large-icon">face</span>
+                    </div>
+                    `
                 searchParentEl.append(matchEl);
+            });
+            searchParentEl.append(suggestYourOwnEl);
+            document.getElementById('suggestYourOwn').addEventListener('click', () => {
+                chrome.tabs.create({url: 'https://www.google.com'});
             });
         }
     } else {

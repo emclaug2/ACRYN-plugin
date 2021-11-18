@@ -126,4 +126,34 @@
             color: map-get($blui-red, 500);
         }
     }
+
+    #searchContainer {
+        width: 100%;
+        display: none;
+        padding-top: 16px;
+        #suggestYourOwn {
+            color: map-get($blui-blue, 500);
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        #noResultsFound {
+            text-align: left;
+            font-size: 16px;
+        }
+    }
+
+    .searched-acronym-item {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        color: map-get($blui-black, 500);
+        .small-icon {
+            color: map-get($blui-gray, 500);
+            font-size: 12px;
+        }
+        .large-icon {
+            color: map-get($blui-gray, 500);
+            font-size: 20px;
+        }
+    }
 }
