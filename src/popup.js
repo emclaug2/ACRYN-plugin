@@ -1,4 +1,3 @@
-
 const loginButton = document.getElementById('login');
 const logoutButton = document.getElementById('logout');
 const loginButtonContainer = document.getElementById('loginButtonContainer');
@@ -18,16 +17,11 @@ window.onload = (event) => {
         .then((data) => {
             console.log('database loaded');
             db = data.acronyms;
-        }).catch((err) => {
+        })
+        .catch((err) => {
             console.error(err);
-    })
+        });
 };
-
-/*
-chrome.storage.sync.get("color", ({ color }) => {
-  changeColor.style.borderColor = color;
-});
-*/
 
 function login() {
     loginButtonContainer.style.display = 'none';
@@ -40,23 +34,15 @@ function logout() {
 }
 
 async function toggleAcronyms() {
-    console.log('checked box');
     const show = toggleFindAcronym.checked;
-    console.log('show');
-    console.log(show);
-
-    console.log('db!');
-    console.log(db);
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     if (hasBeenToggled) {
-        console.log('been toggled');
         chrome.scripting.executeScript({
             target: { tabId: tab.id },
             function: updateTooltipCss,
-            args: [show]
+            args: [show],
         });
     } else {
-        console.log('toggling on');
         hasBeenToggled = true;
         chrome.scripting.executeScript({
             target: { tabId: tab.id },
@@ -67,14 +53,12 @@ async function toggleAcronyms() {
 }
 
 function searchDatabaseForAcronyms(e) {
-
     const value = e.target.value.toUpperCase();
     if (value) {
         searchContainer.style.display = 'block';
     } else {
         searchContainer.style.display = 'none';
     }
-
 
     searchedAcronyms = [];
     for (const entry of db) {
@@ -83,56 +67,60 @@ function searchDatabaseForAcronyms(e) {
         }
     }
 
-    const noSearchParentEl =  document.getElementById('nonSearchContainer');
+    const noSearchParentEl = document.getElementById('nonSearchContainer');
     const searchParentEl = document.getElementById('searchContainer');
 
-
     /** Suggest your own Acronym. */
-    const suggestYourOwnEl = document.createElement("span");
+    const suggestYourOwnEl = document.createElement('span');
     suggestYourOwnEl.id = 'suggestYourOwn';
-    suggestYourOwnEl.innerHTML = 'Suggest your Own';
 
     if (value) {
         searchParentEl.innerHTML = '';
         noSearchParentEl.style.display = 'none';
         searchParentEl.style.display = 'block';
         if (searchedAcronyms.length === 0) {
-            const noResultsFoundEl = document.createElement("div");
+            const noResultsFoundEl = document.createElement('div');
             noResultsFoundEl.id = 'noResultsFound';
             noResultsFoundEl.innerHTML = `<span style="margin-right: 8px">No results found.<span>`;
+            suggestYourOwnEl.innerHTML = 'Suggest your Own';
             noResultsFoundEl.append(suggestYourOwnEl);
             searchParentEl.append(noResultsFoundEl);
             document.getElementById('suggestYourOwn').addEventListener('click', () => {
-                chrome.tabs.create({url: 'https://www.google.com'});
+                chrome.tabs.create({ url: 'https://www.google.com' });
             });
         } else {
             searchedAcronyms.map((match) => {
-                const matchEl = document.createElement("div");
+                const matchEl = document.createElement('div');
                 matchEl.className = 'searched-acronym-item';
-                matchEl.innerHTML =
-                    `<div>
-                       <div style="font-size: 16px;">
+                matchEl.innerHTML = `
+                    <div>
+                       <div class="acronym-meaning">
                             ${match.meaning}
                        </div>
-                       <div style="font-size: 14px;">
-                           
+                       <div class="acronym-sector-region">
                             <span class="material-icons small-icon">apps</span>
                             ${match.sector}
-                            
                             <span class="material-icons small-icon" style="margin-left: 8px">public</span>
                             ${match.region}
                         </div>
                     </div>
                     <div display: flex>
-                       <span class="material-icons large-icon">thumb_up</span>
-                       <span class="material-icons large-icon">face</span>
+                       <span class="material-icons large-icon" style="margin-right: 12px">thumb_up_off_alt</span>
+                       <span class="material-icons large-icon">swap_vert</span>
                     </div>
-                    `
+                    `;
                 searchParentEl.append(matchEl);
             });
+
+            const dividerEl = document.createElement('div');
+            dividerEl.innerHTML = `<div style="margin: 8px 0px 16px 0px; width: 100%; border-bottom: solid 1px #bbbbbb"></div>`;
+
+            searchParentEl.append(dividerEl);
+            suggestYourOwnEl.style.textDecoration = 'none';
+            suggestYourOwnEl.innerHTML = '+ Suggest your Own';
             searchParentEl.append(suggestYourOwnEl);
             document.getElementById('suggestYourOwn').addEventListener('click', () => {
-                chrome.tabs.create({url: 'https://www.google.com'});
+                chrome.tabs.create({ url: 'https://www.google.com' });
             });
         }
     } else {
@@ -147,35 +135,16 @@ loginButton.addEventListener('click', login);
 logoutButton.addEventListener('click', logout);
 toggleFindAcronym.addEventListener('change', toggleAcronyms);
 
-// When the button is clicked, inject setPageBackgroundColor into current page
-loginButton.addEventListener('click', async () => {
-    let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-
-    let acronyms = [];
-    await fetch('https://raw.githubusercontent.com/emclaug2/ACRYN-plugin/master/acroynms.json')
-        .then((response) => response.json())
-        .then((data) => {
-            acronyms = data.acronyms;
-        });
-
-    chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        function: discoverAcronyms,
-        args: [acronyms],
-    });
-});
-
 function updateTooltipCss(show) {
-    console.log('show has value!!! : ' + show);
-    var myList = document.getElementsByClassName("eaton-acronym-plugin-tooltip-text");
+    var myList = document.getElementsByClassName('eaton-acronym-plugin-tooltip-text');
     var i = 0;
-    while(i < myList.length) {
+    while (i < myList.length) {
         if (show) {
-            myList[i].style.backgroundColor="";
-            myList[i].style.borderBottom="";
+            myList[i].style.backgroundColor = '';
+            myList[i].style.borderBottom = '';
         } else {
-            myList[i].style.backgroundColor="unset";
-            myList[i].style.borderBottom="unset";
+            myList[i].style.backgroundColor = 'unset';
+            myList[i].style.borderBottom = 'unset';
         }
         i++;
     }

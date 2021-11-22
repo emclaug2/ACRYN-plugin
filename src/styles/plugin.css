@@ -244,26 +244,44 @@ This code is licensed under the BSD-3 license found in the LICENSE file in the r
   display: none;
   padding-top: 16px;
 }
-.eaton-acronym-plugin-container #searchContainer #suggestYourOwn {
-  color: #007bc1;
-  text-decoration: underline;
-  cursor: pointer;
-}
 .eaton-acronym-plugin-container #searchContainer #noResultsFound {
   text-align: left;
   font-size: 16px;
+}
+.eaton-acronym-plugin-container #suggestYourOwn {
+  font-size: 16px;
+  color: #007bc1;
+  cursor: pointer;
+  text-decoration: underline;
 }
 .eaton-acronym-plugin-container .searched-acronym-item {
   display: flex;
   width: 100%;
   justify-content: space-between;
-  color: #424e54;
+  margin-bottom: 16px;
 }
-.eaton-acronym-plugin-container .searched-acronym-item .small-icon {
+.eaton-acronym-plugin-container .searched-acronym-item > div:first-child {
+  padding-right: 16px;
+  /* Right content */
+}
+.eaton-acronym-plugin-container .searched-acronym-item .acronym-meaning {
+  font-size: 16px;
+  color: #424e54;
+  font-weight: 600;
+}
+.eaton-acronym-plugin-container .searched-acronym-item .acronym-sector-region {
+  display: flex;
+  color: #424e54;
+  font-size: 14px;
+  margin-top: 4px;
+}
+.eaton-acronym-plugin-container .searched-acronym-item .acronym-sector-region .small-icon {
+  font-size: 14px;
+  margin-right: 4px;
   color: #727e84;
-  font-size: 12px;
 }
 .eaton-acronym-plugin-container .searched-acronym-item .large-icon {
+  cursor: pointer;
   color: #727e84;
   font-size: 20px;
 }
