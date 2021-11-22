@@ -12,6 +12,17 @@
             "lastUpdatedBy": "Joe Boyle"
         },
         {
+            "abbr": "PX",
+            "meaning": "Pixels",
+            "description": "A measurement used to determine the size of elements on a screen.",
+            "sector": "Electrical",
+            "region" : "ALL",
+            "score": 1,
+            "references": ["https://www.pxblue.github.io"],
+            "lastUpdateUnixTime": "1 months ago",
+            "lastUpdatedBy": "Joe Boyle"
+        },
+        {
             "abbr": "CLI",
             "meaning": "Command Line Interface",
             "description": "A command-line interface processes commands to a computer program in the form of lines of text.",
