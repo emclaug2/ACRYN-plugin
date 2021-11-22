@@ -16,6 +16,16 @@ This code is licensed under the BSD-3 license found in the LICENSE file in the r
 **/
 /* Primary Colors / User Interface Colors */
 /* Status Colors */
+@import './@fontsource/open-sans/300.css';
+@import '@fontsource/open-sans/300-italic.css';
+@import '@fontsource/open-sans/400.css';
+@import '@fontsource/open-sans/400-italic.css';
+@import '@fontsource/open-sans/600.css';
+@import '@fontsource/open-sans/600-italic.css';
+@import '@fontsource/open-sans/700.css';
+@import '@fontsource/open-sans/700-italic.css';
+@import '@fontsource/open-sans/800.css';
+@import '@fontsource/open-sans/800-italic.css';
 .eaton-acronym-plugin-container .cl-switch {
   /*
   Switcher Style
@@ -129,7 +139,7 @@ This code is licensed under the BSD-3 license found in the LICENSE file in the r
 }
 
 .eaton-acronym-plugin-container {
-  font-family: "Gill Sans", sans-serif;
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
   width: 300px;
   display: flex;
   flex-direction: column;

@@ -31,6 +31,7 @@
     "sass": "^1.43.4"
   },
   "dependencies": {
-    "@brightlayer-ui/colors": "^3.0.1"
+    "@brightlayer-ui/colors": "^3.0.1",
+    "@fontsource/open-sans": "^4.5.2"
   }
 }

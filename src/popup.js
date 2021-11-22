@@ -58,6 +58,7 @@ function searchDatabaseForAcronyms(e) {
         searchContainer.style.display = 'block';
     } else {
         searchContainer.style.display = 'none';
+
     }
 
     searchedAcronyms = [];
@@ -124,7 +125,6 @@ function searchDatabaseForAcronyms(e) {
             });
         }
     } else {
-        noSearchParentEl.innerHTML = '';
         noSearchParentEl.style.display = 'block';
         searchParentEl.style.display = 'none';
     }
