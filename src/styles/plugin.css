@@ -138,7 +138,16 @@ This code is licensed under the BSD-3 license found in the LICENSE file in the r
   margin-left: -50px;
 }
 
-.eaton-acronym-plugin-container {
+/**
+Copyright (c) 2021-present, Eaton
+
+All rights reserved.
+
+This code is licensed under the BSD-3 license found in the LICENSE file in the root directory of this source tree and at https://opensource.org/licenses/BSD-3-Clause.
+**/
+/* Primary Colors / User Interface Colors */
+/* Status Colors */
+.eaton-acronym-plugin-container, .eaton-acronym-plugin-tooltip-text {
   font-family: "Open Sans", Arial, Helvetica, sans-serif;
   width: 300px;
   display: flex;
@@ -148,10 +157,10 @@ This code is licensed under the BSD-3 license found in the LICENSE file in the r
   padding: 8px 8px;
   box-sizing: border-box;
 }
-.eaton-acronym-plugin-container * {
+.eaton-acronym-plugin-container *, .eaton-acronym-plugin-tooltip-text * {
   box-sizing: border-box;
 }
-.eaton-acronym-plugin-container #acronymSearchInput {
+.eaton-acronym-plugin-container #acronymSearchInput, .eaton-acronym-plugin-tooltip-text #acronymSearchInput {
   width: 100%;
   height: 36px;
   border-radius: 18px;
@@ -161,27 +170,27 @@ This code is licensed under the BSD-3 license found in the LICENSE file in the r
   font-style: italic;
   color: #9ca5a9;
 }
-.eaton-acronym-plugin-container #acronymSearchInput:focus-visible {
+.eaton-acronym-plugin-container #acronymSearchInput:focus-visible, .eaton-acronym-plugin-tooltip-text #acronymSearchInput:focus-visible {
   outline: none !important;
   border: solid 2px #007bc1 !important;
 }
-.eaton-acronym-plugin-container .toggle-container {
+.eaton-acronym-plugin-container .toggle-container, .eaton-acronym-plugin-tooltip-text .toggle-container {
   margin-top: 24px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   font-size: 16px;
 }
-.eaton-acronym-plugin-container .switch {
+.eaton-acronym-plugin-container .switch, .eaton-acronym-plugin-tooltip-text .switch {
   display: inline-block;
   height: 34px;
   position: relative;
   width: 60px;
 }
-.eaton-acronym-plugin-container .switch input {
+.eaton-acronym-plugin-container .switch input, .eaton-acronym-plugin-tooltip-text .switch input {
   display: none;
 }
-.eaton-acronym-plugin-container .slider {
+.eaton-acronym-plugin-container .slider, .eaton-acronym-plugin-tooltip-text .slider {
   background-color: #ccc;
   bottom: 0;
   cursor: pointer;
@@ -191,7 +200,7 @@ This code is licensed under the BSD-3 license found in the LICENSE file in the r
   top: 0;
   transition: 0.4s;
 }
-.eaton-acronym-plugin-container .slider:before {
+.eaton-acronym-plugin-container .slider:before, .eaton-acronym-plugin-tooltip-text .slider:before {
   background-color: #fff;
   bottom: 4px;
   content: "";
@@ -201,28 +210,28 @@ This code is licensed under the BSD-3 license found in the LICENSE file in the r
   transition: 0.4s;
   width: 26px;
 }
-.eaton-acronym-plugin-container input:checked + .slider {
+.eaton-acronym-plugin-container input:checked + .slider, .eaton-acronym-plugin-tooltip-text input:checked + .slider {
   background-color: #66bb6a;
 }
-.eaton-acronym-plugin-container input:checked + .slider:before {
+.eaton-acronym-plugin-container input:checked + .slider:before, .eaton-acronym-plugin-tooltip-text input:checked + .slider:before {
   transform: translateX(26px);
 }
-.eaton-acronym-plugin-container .slider.round {
+.eaton-acronym-plugin-container .slider.round, .eaton-acronym-plugin-tooltip-text .slider.round {
   border-radius: 34px;
 }
-.eaton-acronym-plugin-container .slider.round:before {
+.eaton-acronym-plugin-container .slider.round:before, .eaton-acronym-plugin-tooltip-text .slider.round:before {
   border-radius: 50%;
 }
-.eaton-acronym-plugin-container #login {
+.eaton-acronym-plugin-container #login, .eaton-acronym-plugin-tooltip-text #login {
   color: #007bc1;
   text-decoration: underline;
   cursor: pointer;
 }
-.eaton-acronym-plugin-container #userContentContainer {
+.eaton-acronym-plugin-container #userContentContainer, .eaton-acronym-plugin-tooltip-text #userContentContainer {
   display: none;
   width: 100%;
 }
-.eaton-acronym-plugin-container #userContentContainer .eaton-glossary-button {
+.eaton-acronym-plugin-container #userContentContainer .eaton-glossary-button, .eaton-acronym-plugin-tooltip-text #userContentContainer .eaton-glossary-button {
   width: 100%;
   color: #ffffff;
   background-color: #007bc1;
@@ -236,61 +245,65 @@ This code is licensed under the BSD-3 license found in the LICENSE file in the r
   justify-content: center;
   cursor: pointer;
 }
-.eaton-acronym-plugin-container #userContentContainer .user-email {
+.eaton-acronym-plugin-container #userContentContainer .user-email, .eaton-acronym-plugin-tooltip-text #userContentContainer .user-email {
   font-weight: 600;
   font-size: 14px;
 }
-.eaton-acronym-plugin-container #userContentContainer .user-contributions {
+.eaton-acronym-plugin-container #userContentContainer .user-contributions, .eaton-acronym-plugin-tooltip-text #userContentContainer .user-contributions {
   cursor: pointer;
   color: #007bc1;
 }
-.eaton-acronym-plugin-container #userContentContainer .logout {
+.eaton-acronym-plugin-container #userContentContainer .logout, .eaton-acronym-plugin-tooltip-text #userContentContainer .logout {
   cursor: pointer;
   margin-left: 16px;
   color: #ca3c3d;
 }
-.eaton-acronym-plugin-container #searchContainer {
+.eaton-acronym-plugin-container #searchContainer, .eaton-acronym-plugin-tooltip-text #searchContainer {
   width: 100%;
   display: none;
   padding-top: 16px;
 }
-.eaton-acronym-plugin-container #searchContainer #noResultsFound {
+.eaton-acronym-plugin-container #searchContainer #noResultsFound, .eaton-acronym-plugin-tooltip-text #searchContainer #noResultsFound {
   text-align: left;
   font-size: 16px;
 }
-.eaton-acronym-plugin-container #suggestYourOwn {
+.eaton-acronym-plugin-container #suggestYourOwn, .eaton-acronym-plugin-tooltip-text #suggestYourOwn {
   font-size: 16px;
   color: #007bc1;
   cursor: pointer;
   text-decoration: underline;
 }
-.eaton-acronym-plugin-container .searched-acronym-item {
+.eaton-acronym-plugin-container .searched-acronym-item, .eaton-acronym-plugin-tooltip-text .searched-acronym-item {
   display: flex;
   width: 100%;
   justify-content: space-between;
   margin-bottom: 16px;
 }
-.eaton-acronym-plugin-container .searched-acronym-item > div:first-child {
+.eaton-acronym-plugin-container .searched-acronym-item > div:first-child, .eaton-acronym-plugin-tooltip-text .searched-acronym-item > div:first-child {
   padding-right: 16px;
   /* Right content */
 }
-.eaton-acronym-plugin-container .searched-acronym-item .acronym-meaning {
+.eaton-acronym-plugin-container .searched-acronym-item > div:last-child, .eaton-acronym-plugin-tooltip-text .searched-acronym-item > div:last-child {
+  width: 56px;
+}
+.eaton-acronym-plugin-container .searched-acronym-item .acronym-meaning, .eaton-acronym-plugin-tooltip-text .searched-acronym-item .acronym-meaning {
   font-size: 16px;
   color: #424e54;
   font-weight: 600;
 }
-.eaton-acronym-plugin-container .searched-acronym-item .acronym-sector-region {
+.eaton-acronym-plugin-container .searched-acronym-item .acronym-sector-region, .eaton-acronym-plugin-tooltip-text .searched-acronym-item .acronym-sector-region {
   display: flex;
+  align-items: center;
   color: #424e54;
   font-size: 14px;
   margin-top: 4px;
 }
-.eaton-acronym-plugin-container .searched-acronym-item .acronym-sector-region .small-icon {
+.eaton-acronym-plugin-container .searched-acronym-item .acronym-sector-region .small-icon, .eaton-acronym-plugin-tooltip-text .searched-acronym-item .acronym-sector-region .small-icon {
   font-size: 14px;
   margin-right: 4px;
   color: #727e84;
 }
-.eaton-acronym-plugin-container .searched-acronym-item .large-icon {
+.eaton-acronym-plugin-container .searched-acronym-item .large-icon, .eaton-acronym-plugin-tooltip-text .searched-acronym-item .large-icon {
   cursor: pointer;
   color: #727e84;
   font-size: 20px;

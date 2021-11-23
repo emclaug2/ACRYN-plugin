@@ -5,11 +5,13 @@ const userContentContainer = document.getElementById('userContentContainer');
 const toggleFindAcronym = document.getElementById('toggleFindAcronym');
 const acronymSearchInput = document.getElementById('acronymSearchInput');
 const searchContainer = document.getElementById('searchContainer');
+const noSearchParentEl = document.getElementById('nonSearchContainer');
 
 let searchedAcronyms = [];
 let db = [];
 let hasBeenToggled = false;
 
+/** When the plugin is opened, fetch the database of acronyms. */
 window.onload = (event) => {
     console.log('loading db');
     fetch('https://raw.githubusercontent.com/emclaug2/ACRYN-plugin/master/acroynms.json')
@@ -23,11 +25,13 @@ window.onload = (event) => {
         });
 };
 
+/** Logs user in, so they can view links to add their own acronyms. */
 function login() {
     loginButtonContainer.style.display = 'none';
     userContentContainer.style.display = 'block';
 }
 
+/** Logs user out, resets to default state. */
 function logout() {
     loginButtonContainer.style.display = 'block';
     userContentContainer.style.display = 'none';
@@ -52,48 +56,11 @@ async function toggleAcronyms() {
     }
 }
 
-function searchDatabaseForAcronyms(e) {
-    const value = e.target.value.toUpperCase();
-    if (value) {
-        searchContainer.style.display = 'block';
-    } else {
-        searchContainer.style.display = 'none';
-
-    }
-
-    searchedAcronyms = [];
-    for (const entry of db) {
-        if (value === entry.abbr.toUpperCase()) {
-            searchedAcronyms.push(entry);
-        }
-    }
-
-    const noSearchParentEl = document.getElementById('nonSearchContainer');
-    const searchParentEl = document.getElementById('searchContainer');
-
-    /** Suggest your own Acronym. */
-    const suggestYourOwnEl = document.createElement('span');
-    suggestYourOwnEl.id = 'suggestYourOwn';
-
-    if (value) {
-        searchParentEl.innerHTML = '';
-        noSearchParentEl.style.display = 'none';
-        searchParentEl.style.display = 'block';
-        if (searchedAcronyms.length === 0) {
-            const noResultsFoundEl = document.createElement('div');
-            noResultsFoundEl.id = 'noResultsFound';
-            noResultsFoundEl.innerHTML = `<span style="margin-right: 8px">No results found.<span>`;
-            suggestYourOwnEl.innerHTML = 'Suggest your Own';
-            noResultsFoundEl.append(suggestYourOwnEl);
-            searchParentEl.append(noResultsFoundEl);
-            document.getElementById('suggestYourOwn').addEventListener('click', () => {
-                chrome.tabs.create({ url: 'https://www.google.com' });
-            });
-        } else {
-            searchedAcronyms.map((match) => {
-                const matchEl = document.createElement('div');
-                matchEl.className = 'searched-acronym-item';
-                matchEl.innerHTML = `
+/** Given a glossary entry, returns a new tooltip row that provides context. */
+function createMatchElement(match) {
+    const matchEl = document.createElement('div');
+    matchEl.className = 'searched-acronym-item';
+    matchEl.innerHTML = `
                     <div>
                        <div class="acronym-meaning">
                             ${match.meaning}
@@ -110,23 +77,66 @@ function searchDatabaseForAcronyms(e) {
                        <span class="material-icons large-icon">swap_vert</span>
                     </div>
                     `;
-                searchParentEl.append(matchEl);
-            });
+    return matchEl;
+}
 
-            const dividerEl = document.createElement('div');
-            dividerEl.innerHTML = `<div style="margin: 8px 0px 16px 0px; width: 100%; border-bottom: solid 1px #bbbbbb"></div>`;
+function searchDatabaseForAcronyms(e) {
 
-            searchParentEl.append(dividerEl);
-            suggestYourOwnEl.style.textDecoration = 'none';
-            suggestYourOwnEl.innerHTML = '+ Suggest your Own';
-            searchParentEl.append(suggestYourOwnEl);
-            document.getElementById('suggestYourOwn').addEventListener('click', () => {
-                chrome.tabs.create({ url: 'https://www.google.com' });
-            });
-        }
+    // This is assuming all glossary entries use capital letters. */
+    const value = e.target.value.toUpperCase();
+
+    if (value) {
+        searchContainer.style.display = 'block';
+        noSearchParentEl.style.display = ' none';
+        searchContainer.innerHTML = '';
     } else {
+        searchContainer.style.display = 'none';
         noSearchParentEl.style.display = 'block';
-        searchParentEl.style.display = 'none';
+        return;
+    }
+
+    // Iterate through all glossary entries, find matches.
+    searchedAcronyms = [];
+    for (const entry of db) {
+        if (value === entry.abbr.toUpperCase()) {
+            searchedAcronyms.push(entry);
+        }
+    }
+
+    // Suggest your own, element.
+    const suggestYourOwnEl = document.createElement('span');
+    suggestYourOwnEl.id = 'suggestYourOwn';
+
+
+    if (searchedAcronyms.length === 0) {
+        const noResultsFoundEl = document.createElement('div');
+        noResultsFoundEl.id = 'noResultsFound';
+        noResultsFoundEl.innerHTML = `<span style="margin-right: 8px">No results found.<span>`;
+        suggestYourOwnEl.innerHTML = 'Suggest your Own';
+        noResultsFoundEl.append(suggestYourOwnEl);
+        searchContainer.append(noResultsFoundEl);
+        document.getElementById('suggestYourOwn').addEventListener('click', () => {
+            chrome.tabs.create({ url: 'https://www.google.com' });
+        });
+    } else {
+        searchedAcronyms.map((match) => {
+            const matchEl = createMatchElement(match);
+            searchContainer.append(matchEl);
+        });
+
+        // Divider
+        const dividerEl = document.createElement('div');
+        dividerEl.innerHTML = `<div style="margin: 8px 0px 16px 0px; width: 100%; border-bottom: solid 1px #bbbbbb"></div>`;
+
+        // Bottom link
+        suggestYourOwnEl.style.textDecoration = 'none';
+        suggestYourOwnEl.innerHTML = '+ Suggest your Own';
+
+        searchContainer.append(dividerEl);
+        searchContainer.append(suggestYourOwnEl);
+        document.getElementById('suggestYourOwn').addEventListener('click', () => {
+            chrome.tabs.create({ url: 'https://www.google.com' });
+        });
     }
 }
 
@@ -153,17 +163,47 @@ function updateTooltipCss(show) {
 // The body of this function will be executed as a content script inside the
 // current page
 function discoverAcronyms(dbAcronyms) {
+
+    const matIconEl = document.createElement('link');
+    matIconEl.href = `https://fonts.googleapis.com/icon?family=Material+Icons`;
+    matIconEl.rel='stylesheet'
+    document.head.appendChild(matIconEl);
+
+    // This should match the function from above but needs to copied since cannot provide a ref.
+    const createMatchElement = (match) => {
+        const matchEl = document.createElement('div');
+        matchEl.className = 'searched-acronym-item';
+        matchEl.innerHTML = `
+                    <div>
+                       <div class="acronym-meaning">
+                            ${match.meaning}
+                       </div>
+                       <div class="acronym-sector-region">
+                            <span class="material-icons small-icon">apps</span>
+                            ${match.sector}
+                            <span class="material-icons small-icon" style="margin-left: 12px">public</span>
+                            ${match.region}
+                        </div>
+                    </div>
+                    <div>
+                       <span class="material-icons large-icon" style="margin-right: 12px">thumb_up_off_alt</span>
+                       <span class="material-icons large-icon">swap_vert</span>
+                    </div>
+                    `;
+        return matchEl;
+    }
+
     /** Returns an array of elements where the immediate inner content contains an acroynm. */
-    const iterateTree = (el, acronyms) => {
+    const iterateTree = (el, map) => {
         const els = [];
         if (el.hasChildNodes()) {
             for (const child of el.childNodes) {
-                els.push(...iterateTree(child, acronyms));
+                els.push(...iterateTree(child, map));
             }
         } else if (el.nodeType === Node.TEXT_NODE && el.nodeValue) {
             for (const word of el.nodeValue.split(' ')) {
-                if (acronyms.has(word)) {
-                    els.push({ el, word });
+                if (map.has(word)) {
+                    els.push({ el, entry: map.get(word) });
                 }
             }
         }
@@ -172,7 +212,9 @@ function discoverAcronyms(dbAcronyms) {
 
     const map = new Map();
     for (const acro of dbAcronyms) {
-        map.set(acro.abbr, acro.meaning);
+
+        // TODO: this neds to be an array to support mutliple matches.  Abbr -> array etnries
+        map.set(acro.abbr, acro);
     }
 
     const matches = [];
@@ -183,20 +225,45 @@ function discoverAcronyms(dbAcronyms) {
     let highlightColor = 'yellow'; // default
     chrome.storage.sync.get('color', ({ color }) => {
         highlightColor = color;
+
+
         for (const match of matches) {
-            const word = match.word;
+            const abbr = match.entry.abbr;
             const el = match.el;
-            const definition = map.get(word);
-            const re = new RegExp(word, 'g');
+            const entry = match.entry;
+            const definition = match.entry.meaning;
+            const re = new RegExp(abbr, 'g');
+
+           const matchedEl = createMatchElement(match.entry);
+
             if (el.parentElement && el.parentElement.innerHTML) {
                 el.parentElement.innerHTML = el.parentElement.innerHTML.replace(
                     re,
                     `
-                  <span class="eaton-acronym-plugin-tooltip-text">${word}
-                      <span class="tooltip-text">${definition}</span>
+                  <span class="eaton-acronym-plugin-tooltip-text">${abbr}
+                      <div class="tooltip-text">
+                           <div class="searched-acronym-item">
+                                <div>
+                                   <div class="acronym-meaning">
+                                        ${entry.meaning}
+                                   </div>
+                                   <div class="acronym-sector-region"> 
+                                        <span class="material-icons small-icon">apps</span>
+                                        ${entry.sector}
+                                        <span class="material-icons small-icon" style="margin-left: 12px">public</span>
+                                        ${entry.region}
+                                    </div>
+                                </div>
+                                <div>
+                                   <span class="material-icons large-icon" style="margin-right: 12px">thumb_up_off_alt</span>
+                                   <span class="material-icons large-icon">swap_vert</span>
+                                </div>
+                            </div>
+                      </div>
                   </span>
               `
                 );
+
             }
         }
     });

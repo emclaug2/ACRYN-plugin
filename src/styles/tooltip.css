@@ -1,0 +1,73 @@
+/**
+Copyright (c) 2021-present, Eaton
+
+All rights reserved.
+
+This code is licensed under the BSD-3 license found in the LICENSE file in the root directory of this source tree and at https://opensource.org/licenses/BSD-3-Clause.
+**/
+/* Primary Colors / User Interface Colors */
+/* Status Colors */
+.eaton-acronym-plugin-tooltip-text {
+  position: relative;
+  display: inline-block;
+  background-color: #007bc129;
+  border-bottom: 1px dotted black;
+  overflow: visible;
+}
+.eaton-acronym-plugin-tooltip-text .tooltip-text {
+  font-size: 14px;
+  visibility: hidden;
+  min-width: 120px;
+  width: 300px;
+  background-color: #ffffff;
+  border-radius: 4px;
+  padding: 4px 8px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  display: flex;
+  /* Position the tooltip */
+  z-index: 9999;
+  position: absolute;
+}
+.eaton-acronym-plugin-tooltip-text .tooltip-text .searched-acronym-item {
+  padding: 16px;
+}
+.eaton-acronym-plugin-tooltip-text:hover .tooltip-text {
+  visibility: visible;
+}
+.eaton-acronym-plugin-tooltip-text .searched-acronym-item {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.eaton-acronym-plugin-tooltip-text .searched-acronym-item > div:first-child {
+  padding-right: 16px;
+  /* Right content */
+}
+.eaton-acronym-plugin-tooltip-text .searched-acronym-item > div:last-child {
+  width: 56px;
+}
+.eaton-acronym-plugin-tooltip-text .searched-acronym-item .acronym-meaning {
+  font-size: 16px;
+  color: #424e54;
+  font-weight: 600;
+}
+.eaton-acronym-plugin-tooltip-text .searched-acronym-item .acronym-sector-region {
+  display: flex;
+  align-items: center;
+  color: #424e54;
+  font-size: 14px;
+  margin-top: 4px;
+}
+.eaton-acronym-plugin-tooltip-text .searched-acronym-item .acronym-sector-region .small-icon {
+  font-size: 14px;
+  margin-right: 4px;
+  color: #727e84;
+}
+.eaton-acronym-plugin-tooltip-text .searched-acronym-item .large-icon {
+  cursor: pointer;
+  color: #727e84;
+  font-size: 20px;
+}
+
+/*# sourceMappingURL=tooltip.css.map */

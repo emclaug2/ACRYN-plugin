@@ -1,0 +1,35 @@
+@import 'discovered-item';
+
+.eaton-acronym-plugin-tooltip-text {
+    position: relative;
+    display: inline-block;
+    background-color: #007bc129;
+    border-bottom: 1px dotted black;
+    overflow: visible;
+
+    .tooltip-text {
+        font-size: 14px;
+        visibility: hidden;
+        min-width: 120px;
+        width: 300px;
+        background-color: map-get($blui-white, 50);
+        border-radius: 4px;
+        padding: 4px 8px;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        display: flex;
+        /* Position the tooltip */
+        z-index: 9999;
+        position: absolute;
+
+        .searched-acronym-item {
+            padding: 16px;
+        }
+    }
+    &:hover .tooltip-text {
+        visibility: visible;
+    }
+
+
+    @include discovered-item;
+}
+

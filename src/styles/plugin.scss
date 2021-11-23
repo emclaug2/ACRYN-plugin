@@ -10,9 +10,9 @@
 @import '@fontsource/open-sans/700-italic.css';
 @import '@fontsource/open-sans/800.css';
 @import '@fontsource/open-sans/800-italic.css';
+@import 'discovered-item';
 
-
-.eaton-acronym-plugin-container {
+.eaton-acronym-plugin-container, .eaton-acronym-plugin-tooltip-text {
     font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 
     * {
@@ -154,36 +154,6 @@
         cursor: pointer;
         text-decoration: underline;
     }
-
-    .searched-acronym-item {
-        display: flex;
-        width: 100%;
-        justify-content: space-between;
-        margin-bottom: 16px;
-        > div:first-child {
-            padding-right: 16px; /* Right content */
-        }
-        .acronym-meaning {
-            font-size: 16px;
-            color: map-get($blui-black, 500);
-            font-weight: 600;
-        }
-        .acronym-sector-region {
-            display: flex;
-            color: map-get($blui-black, 500);
-            font-size: 14px;
-            margin-top: 4px;
-            .small-icon {
-                font-size: 14px;
-                margin-right: 4px;
-                color: map-get($blui-gray, 500);
-            }
-        }
-        .large-icon {
-            cursor: pointer;
-            color: map-get($blui-gray, 500);
-            font-size: 20px;
-        }
-    }
+    @include discovered-item;
 
 }

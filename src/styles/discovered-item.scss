@@ -1,0 +1,40 @@
+@import '../../node_modules/@brightlayer-ui/colors/palette.scss';
+
+@mixin discovered-item {
+  .searched-acronym-item {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    // name + sector wrapper
+    > div:first-child {
+      padding-right: 16px; /* Right content */
+    }
+    // action icon wrapper
+    > div:last-child {
+      width: 56px;
+    }
+    .acronym-meaning {
+      font-size: 16px;
+      color: map-get($blui-black, 500);
+      font-weight: 600;
+    }
+    .acronym-sector-region {
+      display: flex;
+      align-items: center;
+      color: map-get($blui-black, 500);
+      font-size: 14px;
+      margin-top: 4px;
+      .small-icon {
+        font-size: 14px;
+        margin-right: 4px;
+        color: map-get($blui-gray, 500);
+      }
+    }
+    .large-icon {
+      cursor: pointer;
+      color: map-get($blui-gray, 500);
+      font-size: 20px;
+    }
+  }
+}
