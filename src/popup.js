@@ -74,7 +74,7 @@ function createMatchElement(match) {
                     </div>
                     <div display: flex>
                        <span class="material-icons large-icon" style="margin-right: 12px">thumb_up_off_alt</span>
-                       <span class="material-icons large-icon">swap_vert</span>
+                       <span class="material-icons large-icon">unfold_more</span>
                     </div>
                     `;
     return matchEl;
@@ -187,7 +187,7 @@ function discoverAcronyms(dbAcronyms) {
                     </div>
                     <div>
                        <span class="material-icons large-icon" style="margin-right: 12px">thumb_up_off_alt</span>
-                       <span class="material-icons large-icon">swap_vert</span>
+                       <span class="material-icons large-icon">unfold_more</span>
                     </div>
                     `;
         return matchEl;
@@ -227,14 +227,17 @@ function discoverAcronyms(dbAcronyms) {
         highlightColor = color;
 
 
+        let matchNumber = 0;
         for (const match of matches) {
+            matchNumber++;
             const abbr = match.entry.abbr;
             const el = match.el;
             const entry = match.entry;
             const definition = match.entry.meaning;
             const re = new RegExp(abbr, 'g');
 
-           const matchedEl = createMatchElement(match.entry);
+            const expandToggleId = abbr+matchNumber+'expand';
+            const collapseToggleId = abbr+matchNumber+'collapse';
 
             if (el.parentElement && el.parentElement.innerHTML) {
                 el.parentElement.innerHTML = el.parentElement.innerHTML.replace(
@@ -243,27 +246,77 @@ function discoverAcronyms(dbAcronyms) {
                   <span class="eaton-acronym-plugin-tooltip-text">${abbr}
                       <div class="tooltip-text">
                            <div class="searched-acronym-item">
-                                <div>
-                                   <div class="acronym-meaning">
-                                        ${entry.meaning}
-                                   </div>
-                                   <div class="acronym-sector-region"> 
-                                        <span class="material-icons small-icon">apps</span>
-                                        ${entry.sector}
-                                        <span class="material-icons small-icon" style="margin-left: 12px">public</span>
-                                        ${entry.region}
-                                    </div>
+                           
+                                <div class="expanded">
+                                       <div class="acronym-meaning" style="margin-bottom: 12px; display: flex; justify-content: space-between;">
+                                            <div>${entry.meaning}</div>
+                                            <span class="material-icons" id="${collapseToggleId}">unfold_less</span>
+                                       </div>
+                                       <div class="acronym-description" style="margin-bottom: 12px;">
+                                            ${entry.description}
+                                       </div>
+                                       <div class="icon-row" style="margin-bottom: 8px;">
+                                            <span class="material-icons small-icon">apps</span>
+                                            Sector: ${entry.sector}
+                                        </div>
+                                       <div class="icon-row" style="margin-bottom: 8px;">
+                                            <span class="material-icons small-icon">public</span>
+                                            Region: ${entry.region}
+                                        </div>
+                                       <div class="icon-row" style="margin-bottom: 8px;">
+                                            <span class="material-icons small-icon">link</span>
+                                            ${entry.references.map((link) => `<a href="${link}">${link}</a>`)}
+                                        </div>
+                                       <div class="icon-row">
+                                            <span class="material-icons small-icon">playlist_add_check</span>
+                                            Last Updated: ${entry.lastUpdatedBy}, ${entry.lastUpdateUnixTime}
+                                        </div>
+                                        <div style="display: flex; justify-content: flex-end; margin-top: 16px;">
+                                            <div style="margin-right: 8px; display: flex; align-items: center">
+                                                <span class="material-icons" style="margin-right: 4px;">thumb_up_off_alt</span>
+                                                <span style="font-size: 16px">${entry.score}</span>
+                                            </div>
+                                            <div style="margin-left: 16px">
+                                                <span class="material-icons">edit</span>
+                                            </div>
+                                        </div>
                                 </div>
-                                <div>
-                                   <span class="material-icons large-icon" style="margin-right: 12px">thumb_up_off_alt</span>
-                                   <span class="material-icons large-icon">swap_vert</span>
+                                <div class="non-expanded">
+                                    <div>
+                                       <div class="acronym-meaning">
+                                            ${entry.meaning}
+                                       </div>
+                                       <div class="acronym-sector-region"> 
+                                            <span class="material-icons small-icon">apps</span>
+                                            ${entry.sector}
+                                            <span class="material-icons small-icon" style="margin-left: 12px">public</span>
+                                            ${entry.region}
+                                        </div>
+                                    </div>
+                                    <div>
+                                       <span class="material-icons large-icon" style="margin-right: 12px">thumb_up_off_alt</span>
+                                       <span class="material-icons large-icon" id="${expandToggleId}">unfold_more</span>
+                                    </div>
                                 </div>
                             </div>
                       </div>
                   </span>
               `
                 );
-
+            }
+            const expandEl = document.getElementById(expandToggleId);
+            if (expandEl) {
+                console.log('found ' + expandToggleId);
+                expandEl.onclick=(e) => {
+                    e.stopPropagation();
+                    expandEl.parentElement.parentElement.parentElement.classList.toggle('expanded') };
+            }
+            const collapseEl = document.getElementById(collapseToggleId);
+            if (collapseEl) {
+                console.log('found ' + collapseToggleId);
+                collapseEl.onclick=(e) => {
+                    e.stopPropagation();
+                    collapseEl.parentElement.parentElement.parentElement.classList.toggle('expanded') };
             }
         }
     });

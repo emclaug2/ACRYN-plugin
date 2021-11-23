@@ -298,7 +298,7 @@ This code is licensed under the BSD-3 license found in the LICENSE file in the r
   font-size: 14px;
   margin-top: 4px;
 }
-.eaton-acronym-plugin-container .searched-acronym-item .acronym-sector-region .small-icon, .eaton-acronym-plugin-tooltip-text .searched-acronym-item .acronym-sector-region .small-icon {
+.eaton-acronym-plugin-container .searched-acronym-item .small-icon, .eaton-acronym-plugin-tooltip-text .searched-acronym-item .small-icon {
   font-size: 14px;
   margin-right: 4px;
   color: #727e84;

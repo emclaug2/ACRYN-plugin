@@ -8,7 +8,7 @@
             "region" : "ALL",
             "score": 1,
             "references": ["https://www.pxblue.github.io"],
-            "lastUpdateUnixTime": "3 months ago",
+            "lastUpdateTime": "3 months ago",
             "lastUpdatedBy": "Joe Boyle"
         },
         {
@@ -19,7 +19,7 @@
             "region" : "ALL",
             "score": 1,
             "references": ["https://www.pxblue.github.io"],
-            "lastUpdateUnixTime": "1 months ago",
+            "lastUpdateTime": "1 months ago",
             "lastUpdatedBy": "Joe Boyle"
         },
         {
@@ -30,7 +30,7 @@
             "region" : "ALL",
             "score": 3,
             "references": ["https://pxblue.github.io/development/cli"],
-            "lastUpdateUnixTime": "5 months ago",
+            "lastUpdateTime": "5 months ago",
             "lastUpdatedBy": "Joe Boyle"
         },
         {
@@ -41,7 +41,7 @@
             "region" : "ALL",
             "score": 6,
             "references": ["https://www.pxblue.github.io"],
-            "lastUpdateUnixTime": "6 months ago",
+            "lastUpdateTime": "6 months ago",
             "lastUpdatedBy": "Evan McLaughlin"
         },
         {
@@ -52,7 +52,7 @@
             "region" : "ALL",
             "score": 2,
             "references": ["https://www.pxblue.github.io"],
-            "lastUpdateUnixTime": "4 months ago",
+            "lastUpdateTime": "4 months ago",
             "lastUpdatedBy": "Eric Atha"
         },
         {
@@ -63,7 +63,7 @@
             "region" : "ALL",
             "score": 4,
             "references": ["https://pxblue.github.io/development/environment"],
-            "lastUpdateUnixTime": "4 months ago",
+            "lastUpdateTime": "4 months ago",
             "lastUpdatedBy": "Jeff Greiner"
         },
         {
@@ -74,7 +74,7 @@
             "region" : "ALL",
             "score": 5,
             "references": ["https://pxblue.github.io/development/environment"],
-            "lastUpdateUnixTime": "4 months ago",
+            "lastUpdateTime": "4 months ago",
             "lastUpdatedBy": "Thomas Dailey"
         },
         {
@@ -85,7 +85,7 @@
             "region" : "ALL",
             "score": 7,
             "references": ["https://pxblue.github.io/design/anatomy"],
-            "lastUpdateUnixTime": "4 months ago",
+            "lastUpdateTime": "4 months ago",
             "lastUpdatedBy": "Huayun Huang"
         }
     ]

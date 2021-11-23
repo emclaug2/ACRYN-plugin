@@ -11,7 +11,7 @@
         font-size: 14px;
         visibility: hidden;
         min-width: 120px;
-        width: 300px;
+        width: 350px;
         background-color: map-get($blui-white, 50);
         border-radius: 4px;
         padding: 4px 8px;
@@ -22,8 +22,29 @@
         position: absolute;
 
         .searched-acronym-item {
-            padding: 16px;
+            padding: 8px;
+            margin-bottom: 0;
+            &.expanded .non-expanded {
+                display: none;
+            }
+            &:not(.expanded) .expanded {
+                display: none;
+            }
         }
+        .non-expanded {
+            display: flex;
+            width: 100% !important;
+            padding-right: 0;
+            justify-content: space-between;
+        }
+        .expanded {
+            padding-right: 0!important;
+            .icon-row {
+                display: flex;
+                align-items: center;
+            }
+        }
+
     }
     &:hover .tooltip-text {
         visibility: visible;

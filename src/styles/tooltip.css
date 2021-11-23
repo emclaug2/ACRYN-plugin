@@ -18,7 +18,7 @@ This code is licensed under the BSD-3 license found in the LICENSE file in the r
   font-size: 14px;
   visibility: hidden;
   min-width: 120px;
-  width: 300px;
+  width: 350px;
   background-color: #ffffff;
   border-radius: 4px;
   padding: 4px 8px;
@@ -29,7 +29,27 @@ This code is licensed under the BSD-3 license found in the LICENSE file in the r
   position: absolute;
 }
 .eaton-acronym-plugin-tooltip-text .tooltip-text .searched-acronym-item {
-  padding: 16px;
+  padding: 8px;
+  margin-bottom: 0;
+}
+.eaton-acronym-plugin-tooltip-text .tooltip-text .searched-acronym-item.expanded .non-expanded {
+  display: none;
+}
+.eaton-acronym-plugin-tooltip-text .tooltip-text .searched-acronym-item:not(.expanded) .expanded {
+  display: none;
+}
+.eaton-acronym-plugin-tooltip-text .tooltip-text .non-expanded {
+  display: flex;
+  width: 100% !important;
+  padding-right: 0;
+  justify-content: space-between;
+}
+.eaton-acronym-plugin-tooltip-text .tooltip-text .expanded {
+  padding-right: 0 !important;
+}
+.eaton-acronym-plugin-tooltip-text .tooltip-text .expanded .icon-row {
+  display: flex;
+  align-items: center;
 }
 .eaton-acronym-plugin-tooltip-text:hover .tooltip-text {
   visibility: visible;
@@ -59,7 +79,7 @@ This code is licensed under the BSD-3 license found in the LICENSE file in the r
   font-size: 14px;
   margin-top: 4px;
 }
-.eaton-acronym-plugin-tooltip-text .searched-acronym-item .acronym-sector-region .small-icon {
+.eaton-acronym-plugin-tooltip-text .searched-acronym-item .small-icon {
   font-size: 14px;
   margin-right: 4px;
   color: #727e84;

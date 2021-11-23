@@ -25,11 +25,11 @@
       color: map-get($blui-black, 500);
       font-size: 14px;
       margin-top: 4px;
-      .small-icon {
-        font-size: 14px;
-        margin-right: 4px;
-        color: map-get($blui-gray, 500);
-      }
+    }
+    .small-icon {
+      font-size: 14px;
+      margin-right: 4px;
+      color: map-get($blui-gray, 500);
     }
     .large-icon {
       cursor: pointer;
