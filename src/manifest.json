@@ -1,6 +1,6 @@
 {
-    "name": "Getting Started Example",
-    "description": "Build an Extension!",
+    "name": "Eaton Acronyms",
+    "description": "Quickly access Eaton's acronym database with optional tooltips.",
     "version": "1.0",
     "manifest_version": 3,
     "background": {
