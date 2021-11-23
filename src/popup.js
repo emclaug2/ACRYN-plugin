@@ -250,7 +250,7 @@ function discoverAcronyms(dbAcronyms) {
                                 <div class="expanded">
                                        <div class="acronym-meaning" style="margin-bottom: 12px; display: flex; justify-content: space-between;">
                                             <div>${entry.meaning}</div>
-                                            <span class="material-icons" id="${collapseToggleId}">unfold_less</span>
+                                            <span class="material-icons large-icon" id="${collapseToggleId}">unfold_less</span>
                                        </div>
                                        <div class="acronym-description" style="margin-bottom: 12px;">
                                             ${entry.description}
@@ -269,7 +269,7 @@ function discoverAcronyms(dbAcronyms) {
                                         </div>
                                        <div class="icon-row">
                                             <span class="material-icons small-icon">playlist_add_check</span>
-                                            Last Updated: ${entry.lastUpdatedBy}, ${entry.lastUpdateUnixTime}
+                                            Last Updated: ${entry.lastUpdatedBy}, ${entry.lastUpdateTime}
                                         </div>
                                         <div style="display: flex; justify-content: flex-end; margin-top: 16px;">
                                             <div style="margin-right: 8px; display: flex; align-items: center">
@@ -306,14 +306,13 @@ function discoverAcronyms(dbAcronyms) {
             }
             const expandEl = document.getElementById(expandToggleId);
             if (expandEl) {
-                console.log('found ' + expandToggleId);
                 expandEl.onclick=(e) => {
+                    console.log('clicked');
                     e.stopPropagation();
                     expandEl.parentElement.parentElement.parentElement.classList.toggle('expanded') };
             }
             const collapseEl = document.getElementById(collapseToggleId);
             if (collapseEl) {
-                console.log('found ' + collapseToggleId);
                 collapseEl.onclick=(e) => {
                     e.stopPropagation();
                     collapseEl.parentElement.parentElement.parentElement.classList.toggle('expanded') };
