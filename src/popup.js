@@ -233,11 +233,10 @@ function discoverAcronyms(dbAcronyms) {
             const abbr = match.entry.abbr;
             const el = match.el;
             const entry = match.entry;
-            const definition = match.entry.meaning;
             const re = new RegExp(abbr, 'g');
 
-            const expandToggleId = abbr+matchNumber+'expand';
-            const collapseToggleId = abbr+matchNumber+'collapse';
+            const expandToggleClass = abbr+matchNumber+'expand';
+            const collapseToggleClass = abbr+matchNumber+'collapse';
 
             if (el.parentElement && el.parentElement.innerHTML) {
                 el.parentElement.innerHTML = el.parentElement.innerHTML.replace(
@@ -250,7 +249,7 @@ function discoverAcronyms(dbAcronyms) {
                                 <div class="expanded">
                                        <div class="acronym-meaning" style="margin-bottom: 12px; display: flex; justify-content: space-between;">
                                             <div>${entry.meaning}</div>
-                                            <span class="material-icons large-icon" id="${collapseToggleId}">unfold_less</span>
+                                            <span class="material-icons large-icon ${collapseToggleClass}">unfold_less</span>
                                        </div>
                                        <div class="acronym-description" style="margin-bottom: 12px;">
                                             ${entry.description}
@@ -295,7 +294,7 @@ function discoverAcronyms(dbAcronyms) {
                                     </div>
                                     <div>
                                        <span class="material-icons large-icon" style="margin-right: 12px">thumb_up_off_alt</span>
-                                       <span class="material-icons large-icon" id="${expandToggleId}">unfold_more</span>
+                                       <span class="material-icons large-icon ${expandToggleClass}">unfold_more</span>
                                     </div>
                                 </div>
                             </div>
@@ -304,18 +303,24 @@ function discoverAcronyms(dbAcronyms) {
               `
                 );
             }
-            const expandEl = document.getElementById(expandToggleId);
-            if (expandEl) {
-                expandEl.onclick=(e) => {
-                    console.log('clicked');
-                    e.stopPropagation();
-                    expandEl.parentElement.parentElement.parentElement.classList.toggle('expanded') };
+            const expandEls = document.getElementsByClassName(expandToggleClass);
+            if (expandEls) {
+                for (const expandEl of expandEls) {
+                    expandEl.onclick = (e) => {
+                        console.log('clicked');
+                        e.stopPropagation();
+                        expandEl.parentElement.parentElement.parentElement.classList.toggle('expanded')
+                    };
+                }
             }
-            const collapseEl = document.getElementById(collapseToggleId);
-            if (collapseEl) {
-                collapseEl.onclick=(e) => {
-                    e.stopPropagation();
-                    collapseEl.parentElement.parentElement.parentElement.classList.toggle('expanded') };
+            const collapseEls = document.getElementsByClassName(collapseToggleClass);
+            if (collapseEls) {
+                for (const collapseEl of collapseEls) {
+                    collapseEl.onclick=(e) => {
+                        console.log('clicked');
+                        e.stopPropagation();
+                        collapseEl.parentElement.parentElement.parentElement.classList.toggle('expanded') };
+                }
             }
         }
     });
